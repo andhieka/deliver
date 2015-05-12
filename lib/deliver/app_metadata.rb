@@ -87,9 +87,9 @@ module Deliver
     # @raise (AppMetadataParameterError) Is thrown when don't pass a correct hash with correct language codes.
     # @return (Bool) Is true, if the language was created. False, when the language alreade existed
     def add_new_locale(language)
-      unless FastlaneCore::Languages::ALL_LANGUAGES.include?language
-        raise "Language '#{language}' is invalid. It must be in #{FastlaneCore::Languages::ALL_LANGUAGES}."
-      end
+      # unless FastlaneCore::Languages::ALL_LANGUAGES.include?language
+      #   raise "Language '#{language}' is invalid. It must be in #{FastlaneCore::Languages::ALL_LANGUAGES}."
+      # end
 
       if information[language] != nil
         Helper.log.info("Locale '#{language}' already exists. Can not create it again.")
@@ -271,7 +271,7 @@ module Deliver
 
           locale = fetch_value("//x:locale[@name='#{language}']").first
 
-          raise AppMetadataParameterError.new("#{INVALID_LANGUAGE_ERROR} (#{language})") unless FastlaneCore::Languages::ALL_LANGUAGES.include?language
+          # raise AppMetadataParameterError.new("#{INVALID_LANGUAGE_ERROR} (#{language})") unless FastlaneCore::Languages::ALL_LANGUAGES.include?language
 
 
           field = locale.search(xpath_name).first

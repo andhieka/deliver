@@ -7,7 +7,7 @@ module Deliver
     # Removes all currently enabled screenshots for the given language.
     # @param (String) language The language, which has to be in this list: {FastlaneCore::Languages}.
     def clear_all_screenshots(language)
-      raise AppMetadataParameterError.new(INVALID_LANGUAGE_ERROR) unless FastlaneCore::Languages::ALL_LANGUAGES.include?language
+      # raise AppMetadataParameterError.new(INVALID_LANGUAGE_ERROR) unless FastlaneCore::Languages::ALL_LANGUAGES.include?language
 
       update_localized_value('software_screenshots', {language => {}}) do |field, useless, language|
         field.children.remove # remove all the screenshots
@@ -22,7 +22,7 @@ module Deliver
     # @raise (AppMetadataTooManyScreenshotsError) When there are already 5 screenshots (MAXIMUM_NUMBER_OF_SCREENSHOTS).
 
     def add_screenshot(language, app_screenshot)
-      raise AppMetadataParameterError.new(INVALID_LANGUAGE_ERROR) unless FastlaneCore::Languages::ALL_LANGUAGES.include?language
+      # raise AppMetadataParameterError.new(INVALID_LANGUAGE_ERROR) unless FastlaneCore::Languages::ALL_LANGUAGES.include?language
 
       create_locale_if_not_exists(language)
 
@@ -107,7 +107,7 @@ module Deliver
       hash.each do |language, current_path|
         resulting_path = "#{current_path}/**/*.{png,jpg,jpeg}"
 
-        raise AppMetadataParameterError.new(INVALID_LANGUAGE_ERROR) unless FastlaneCore::Languages::ALL_LANGUAGES.include?language
+        # raise AppMetadataParameterError.new(INVALID_LANGUAGE_ERROR) unless FastlaneCore::Languages::ALL_LANGUAGES.include?language
 
         # https://stackoverflow.com/questions/21688855/
         # File::FNM_CASEFOLD = ignore case
@@ -138,6 +138,8 @@ module Deliver
       raise AppMetadataParameterError.new("Parameter needs to be a path (string)") unless path.kind_of?String
 
       found = false
+      langArr = FastlaneCore::Languages::ALL_LANGUAGES
+      langArr.push("zh-Hans")
       FastlaneCore::Languages::ALL_LANGUAGES.each do |language|
         full_path = path + "/#{language}"
         if File.directory?(full_path)
