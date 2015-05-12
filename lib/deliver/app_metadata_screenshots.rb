@@ -139,8 +139,8 @@ module Deliver
 
       found = false
       langArr = FastlaneCore::Languages::ALL_LANGUAGES
-      langArr.push("zh-Hans")
-      FastlaneCore::Languages::ALL_LANGUAGES.each do |language|
+      langArr.push("zh-CN")
+      langArr.each do |language|
         full_path = path + "/#{language}"
         if File.directory?(full_path)
           found = true

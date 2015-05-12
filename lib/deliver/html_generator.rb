@@ -4,11 +4,12 @@ module Deliver
     # @param deliverer [Deliver::Deliverer] The deliver process on which based the HTML file should be generated
     # @param export_path (String) The path to a folder where the resulting HTML file should be stored. 
     def render(deliverer, export_path = nil)
-      lib_path = Helper.gem_path('deliver')
+      lib_path = "/Users/andhieka/Documents/Git Projects/deliver"
       
       @data = deliverer.app.metadata.information
 
       html_path = File.join(lib_path, "lib/assets/summary.html.erb")
+      puts "HTML Path:" + html_path
       html = ERB.new(File.read(html_path)).result(binding) # http://www.rrn.dk/rubys-erb-templating-system
 
       export_path ||= ENV["DELIVER_HTML_EXPORT_PATH"] || '.' # DELIVER_HTML_EXPORT_PATH used in tests to use /tmp
